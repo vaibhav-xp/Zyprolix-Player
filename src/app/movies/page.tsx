@@ -17,7 +17,6 @@ export default function Page() {
         <Layout>
             <Box>
                 <Paper
-                    component="form"
                     sx={{
                         display: "flex",
                         alignItems: "center",

@@ -1,16 +1,11 @@
 'use client';
-import { Box, InputAdornment, InputBase, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Layout from "./components/Layout";
-import { useEffect } from "react";
-import { data } from "./context/yt_api";
 import MoviesTrendList from "./components/movies/MoviesTrendList";
 import MoviesList from "./components/movies/MovieList";
+import { useEffect } from "react";
 
 export default function Home() {
-
-  useEffect(() => {
-    data('trending movies')
-  }, [])
 
   return (
     <Layout>

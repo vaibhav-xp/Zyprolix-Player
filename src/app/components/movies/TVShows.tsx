@@ -11,16 +11,16 @@ interface MovieListProps {
 
 export default function TVShows({ limit = 0 }: MovieListProps) {
     const [tvShowList, setTvShowList] = useState<videoDataType[]>([]);
+    const { search } = useSearchContext()
 
     useEffect(() => {
         const filteredTvShows = videos.filter((tvShow) =>
-            // (tvShow.title.toLowerCase().includes(search.toLowerCase()) ||
-            //     tvShow.description.toLowerCase().includes(search.toLowerCase())) &&
-            tvShow.categoryName === 'tv-show'
+            (tvShow.title.toLowerCase().includes(search.toLowerCase()) ||
+                tvShow.description.toLowerCase().includes(search.toLowerCase())) && tvShow.categoryName === 'tv-show'
         );
 
         setTvShowList(filteredTvShows);
-    }, []);
+    }, [search]);
 
     return (
         <Box

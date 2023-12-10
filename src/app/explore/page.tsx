@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Box, Button, InputAdornment, InputBase, Paper } from '@mui/material';
+import { Box, Button, InputAdornment, InputBase, Paper, Typography } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import Layout from '../components/Layout';
 import ExploreList from '../components/explore/ExploreList';
@@ -8,11 +8,12 @@ import { useSearchContext } from '../context/gloablConext';
 
 export default function Page() {
     const [form, setForm] = useState<string>("");
-    const { setSearch } = useSearchContext()
+    const { setSearch, apiRequestCounter, setApiRequestCounter } = useSearchContext()
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSearch(form)
+        setApiRequestCounter((prev) => prev + 1)
     };
 
     useEffect(() => {
@@ -35,7 +36,11 @@ export default function Page() {
                     }}
                 >
                     <InputBase
-                        placeholder="Explore as much as you can..."
+                        placeholder={
+                            apiRequestCounter === 20
+                                ? "Search is temporarily disabled for 24 hours due to API limits"
+                                : "Explore as much as you can..."
+                        }
                         sx={{
                             ml: 1,
                             flex: 1,
@@ -50,8 +55,8 @@ export default function Page() {
                             </InputAdornment>
                         }
                     />
-                    <Button type="submit" variant="contained" color="primary">
-                        Submit
+                    <Button type="submit" variant="contained" color="primary" disabled={apiRequestCounter === 20}>
+                        Submit {`${apiRequestCounter}/20`}
                     </Button>
                 </Paper>
             </Box>

@@ -328,13 +328,12 @@ export const videos: videoDataType[] = [
             "Nobita finds a stray dog and brings him home, little does hi knows that the dog is actually a prince in his homeland, a world appart deep in the african ‘Smokers Forest’ were the dogs evolved and have their own empire, so he and his friends take on a journey to take back the young prince to his homeland but when they get there things have changed.",
     },
     {
-        _id: "hJx0kAjBTdI",
-        videoLink: videoLinkCreator("hJx0kAjBTdI"),
-        thumbnail: videoThumbnailLinkCreator("hJx0kAjBTdI"),
-        categoryName: "Documentary",
-        title: "Gadar 2",
-        description:
-            "Gadar 2 is an upcoming Indian action thriller film, serving as a sequel to the 2001 blockbuster Gadar: Ek Prem Katha. Directed by [Director's Name], the movie continues the saga of love and patriotism, exploring new challenges and adventures faced by the lead characters. With a gripping storyline and intense action sequences, Gadar 2 promises to be an exhilarating cinematic experience for the audience.",
+        _id: "My5L3qLhewg",
+        videoLink: videoLinkCreator("My5L3qLhewg"),
+        thumbnail: videoThumbnailLinkCreator("My5L3qLhewg"),
+        categoryName: "Comedy",
+        title: "Khatta Meetha",
+        description: "Khatta Meetha is a hilarious comedy film that revolves around the amusing and chaotic life of a middle-class man. Filled with comedic situations and witty dialogues, the movie explores the challenges and humor in everyday life. Join the laughter ride as the characters navigate through sweet and sour moments, making Khatta Meetha a delightful watch for comedy enthusiasts."
     },
     {
         _id: "V-xr9RJvzlQ",

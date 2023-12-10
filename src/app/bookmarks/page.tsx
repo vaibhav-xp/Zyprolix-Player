@@ -1,12 +1,17 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { Box, InputAdornment, InputBase, Paper, Typography } from '@mui/material';
-import { Cottage, Search as SearchIcon } from '@mui/icons-material';
-import MoviesList from '../components/movies/MovieList';
+import { Search as SearchIcon } from '@mui/icons-material';
+import BookmarksList from '../components/bookmarks/BookmarksList';
+import { useSearchContext } from '../context/gloablConext';
 
 export default function Page() {
-    const [search, setSearch] = useState<string>()
+    const { search, setSearch } = useSearchContext()
+
+    useEffect(() => {
+        return () => setSearch("")
+    }, [])
 
     return (
         <Layout>
@@ -41,23 +46,19 @@ export default function Page() {
                 </Paper>
             </Box>
             <Box py={2} px={4}>
-                {
-                    search === "" ? (
-                        <Box width="100%">
-                            <Box width="100%">
-                                <Typography
-                                    variant="h5"
-                                    component="h1"
-                                    my={6}
-                                    fontWeight={400}
-                                >
-                                    Movies
-                                </Typography>
-                                <MoviesList />
-                            </Box>
-                        </Box>
-                    ) : ""
-                }
+                <Box width="100%">
+                    <Box width="100%">
+                        <Typography
+                            variant="h5"
+                            component="h1"
+                            my={6}
+                            fontWeight={400}
+                        >
+                            Bookmarks
+                        </Typography>
+                        <BookmarksList />
+                    </Box>
+                </Box>
             </Box>
         </Layout>
     )

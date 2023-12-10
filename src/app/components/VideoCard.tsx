@@ -1,12 +1,31 @@
-import { Bookmark, LocalMovies, LocalMoviesOutlined, Movie, PlayCircle } from '@mui/icons-material'
+import { Bookmark, BookmarkAdd, BookmarkAdded, LocalMovies, LocalMoviesOutlined, Movie, PlayCircle } from '@mui/icons-material'
 import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSearchContext } from '../context/gloablConext'
 
 export default function VideoCard({ movie }) {
-    const { title, thumbnail, categoryName, videoLink, description } = movie
-    const newTitle = title.split(' ').splice(0, 5).join(" ")
+    const { title, thumbnail, categoryName } = movie;
+    const newTitle = title.split(' ').splice(0, 5).join(" ");
+    const { bookmark, setBookmark } = useSearchContext();
+    const [isBookmark, setIsBookmark] = useState<boolean>(false);
+
+    useEffect(() => {
+        const book = bookmark.some((video) => video._id === movie._id);
+        setIsBookmark(book);
+    }, [bookmark, movie._id]);
+
+    const handleToggleBookmark = () => {
+        if (isBookmark) {
+            // Remove the video from bookmarks
+            const updatedBookmarks = bookmark.filter((video) => video._id !== movie._id);
+            setBookmark(updatedBookmarks);
+        } else {
+            // Add the video to bookmarks
+            setBookmark([...bookmark, movie]);
+        }
+    };
 
     return (
         <Card
@@ -95,14 +114,20 @@ export default function VideoCard({ movie }) {
                     style={{
                         position: "absolute",
                         top: "-2px",
-                        left: 0,
                         right: "10px",
                         display: "flex",
                         justifyContent: "flex-end",
                         cursor: "pointer"
                     }}
+                    onClick={handleToggleBookmark}
                 >
-                    <Bookmark />
+                    {isBookmark ? (
+                        <BookmarkAdded style={{
+                            color: 'green'
+                        }} />
+                    ) : (
+                        <BookmarkAdd />
+                    )}
                 </Box>
                 <Link
                     style={{

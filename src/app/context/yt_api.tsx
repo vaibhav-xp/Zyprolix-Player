@@ -2,40 +2,28 @@
 import axios from "axios";
 const API = process.env.NEXT_PUBLIC_YT_API
 
-// export const fetchVideos = createAsyncThunk('fetchVideos', async (keyword) => {
-//     console.log(keyword)
-//     const response = await youtubeAPI.get("/search", {
-//         params: {
-//             q: keyword
-//         }
-//     });
-//     return response.data.pageInfo.totalResults; // Use response.data.items to get the videos
-// });
-
 const youtubeAPI = axios.create({
     baseURL: "https://youtube.googleapis.com/youtube/v3/",
     params: {
         part: "snippet",
-        maxResults: 8,
+        maxResults: 50,
         key: API
     },
     headers: {}
 });
 
-const data = async (keyword: string) => {
+const ytDataAPI = async (keyword: string) => {
     try {
         const res = await youtubeAPI.get('/search', {
             params: {
                 q: keyword
             }
         })
-        // const res = await youtubeAPI.get('/videoCategories')
-        console.log(res.data)
+
         return res.data
-    } catch (error) {
-        // console.log(error.message)
-        console.log("hello")
+    } catch (error: any) {
+        console.log(error.message)
     }
 }
 
-export { youtubeAPI, data };
+export { youtubeAPI, ytDataAPI };

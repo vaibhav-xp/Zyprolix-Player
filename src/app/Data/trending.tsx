@@ -1,5 +1,4 @@
-import { videoLinkCreator, videoThumbnailLinkCreator } from "./videoHelper";
-import { videoDataType } from "./videos";
+import { videoDataType, videoLinkCreator, videoThumbnailLinkCreator } from "./videoHelper";
 
 export const trendingVideos: videoDataType[] = [
     {
