@@ -10,6 +10,8 @@ interface GlobalContextProviderProps {
     setApiRequestCounter: Dispatch<SetStateAction<number>>;
     bookmark: videoDataType[];
     setBookmark: Dispatch<SetStateAction<videoDataType[]>>;
+    history: videoDataType[];
+    setHistory: Dispatch<SetStateAction<videoDataType[]>>;
 }
 
 export const GlobalContext = createContext<GlobalContextProviderProps | undefined>(undefined);
@@ -19,6 +21,7 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
     const [apiRequestCounter, setApiRequestCounter] = useState<number>(0);
     const [bookmark, setBookmark] = useState<videoDataType[]>([]);
     const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
+    const [history, setHistory] = useState<videoDataType[]>([]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
@@ -27,6 +30,10 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
 
             const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
             setBookmark(storedBookmarks);
+
+            const storeHistory = JSON.parse(localStorage.getItem('history') || "[]")
+            setHistory(storeHistory)
+
             setIsDataLoaded(true);
         }
     }, []);
@@ -56,6 +63,11 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
         }
     }, [isDataLoaded, bookmark])
 
+    useEffect(() => {
+        if (isDataLoaded) {
+            localStorage.setItem('history', JSON.stringify(history))
+        }
+    }, [history, isDataLoaded])
 
     return (
         <GlobalContext.Provider value={{
@@ -64,7 +76,9 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
             apiRequestCounter,
             setApiRequestCounter,
             bookmark,
-            setBookmark
+            setBookmark,
+            history,
+            setHistory
         }}>
             {children}
         </GlobalContext.Provider>

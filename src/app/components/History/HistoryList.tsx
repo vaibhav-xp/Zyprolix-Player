@@ -4,19 +4,19 @@ import TrendCard from '../VideoCard';
 import { useSearchContext } from '@/app/context/gloablConext';
 import { videoDataType } from '@/app/Data/videoHelper';
 
-export default function BookmarksList() {
+export default function HistoryList() {
     const [explore, setExplore] = useState<videoDataType[]>([]);
-    const { search, bookmark } = useSearchContext();
+    const { search, history } = useSearchContext();
 
     useEffect(() => {
-        const filteredMovies = bookmark.filter(
+        const filteredMovies = history.filter(
             (movie) =>
                 movie.title.toLowerCase().includes(search.toLowerCase()) ||
                 movie.description.toLowerCase().includes(search.toLowerCase())
         );
 
         setExplore(filteredMovies);
-    }, [search, bookmark]);
+    }, [search, history]);
 
     const gridContainerStyle = {
         display: 'grid',

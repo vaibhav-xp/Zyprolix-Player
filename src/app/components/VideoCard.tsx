@@ -5,10 +5,10 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useSearchContext } from '../context/gloablConext'
 
-export default function VideoCard({ movie }) {
-    const { title, thumbnail, categoryName } = movie;
+export default function VideoCard({ movie }: { movie: any }) {
+    const { title, thumbnail, categoryName, description } = movie;
     const newTitle = title.split(' ').splice(0, 5).join(" ");
-    const { bookmark, setBookmark } = useSearchContext();
+    const { bookmark, setBookmark, history, setHistory } = useSearchContext();
     const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
     useEffect(() => {
@@ -18,14 +18,25 @@ export default function VideoCard({ movie }) {
 
     const handleToggleBookmark = () => {
         if (isBookmark) {
-            // Remove the video from bookmarks
             const updatedBookmarks = bookmark.filter((video) => video._id !== movie._id);
             setBookmark(updatedBookmarks);
         } else {
-            // Add the video to bookmarks
-            setBookmark([...bookmark, movie]);
+            setBookmark([movie, ...bookmark]);
         }
     };
+
+    const saveHistory = () => {
+        setHistory((prevHistory) => {
+            const movieInHistory = prevHistory.length > 0 && prevHistory[0]._id === movie._id;
+
+            if (!movieInHistory) {
+                return [movie, ...prevHistory];
+            }
+
+            return prevHistory;
+        });
+    };
+
 
     return (
         <Card
@@ -140,7 +151,16 @@ export default function VideoCard({ movie }) {
                         color: "#fff",
                         cursor: "pointer",
                     }}
-                    href={`/video/${movie._id}`}
+                    href={{
+                        pathname: `/video/${movie._id}`,
+                        query: {
+                            title,
+                            categoryName,
+                            description
+                        },
+                    }}
+
+                    onClick={saveHistory}
                 >
                     <PlayCircle
                         sx={{

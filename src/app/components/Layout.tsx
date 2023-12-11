@@ -22,14 +22,15 @@ export default function Layout({ children }: LayoutProps) {
                 padding: 3,
                 gap: 3,
                 overflowY: "hidden",
-                height: "100vh"
+                height: "100vh",
             }}
         >
             <Sidebar />
             <Box
                 sx={{
                     width: "100%",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    pb: 6
                 }}
             >
                 {children}

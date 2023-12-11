@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { Box, InputAdornment, InputBase, Paper, Typography } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import BookmarksList from '../components/bookmarks/BookmarksList';
 import { useSearchContext } from '../context/gloablConext';
 import HistoryList from '../components/History/HistoryList';
 
@@ -55,9 +54,9 @@ export default function Page() {
                             my={6}
                             fontWeight={400}
                         >
-                            Bookmarks
+                            History
                         </Typography>
-                        <BookmarksList />
+                        <HistoryList />
                     </Box>
                 </Box>
             </Box>

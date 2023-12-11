@@ -1,10 +1,21 @@
 'use client'
 import { trendingVideos } from '@/app/Data/trending'
 import { Box, Grid, Paper } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TrendCard from '../VideoCard'
+import { videoDataType } from '@/app/Data/videoHelper'
+import { useSearchContext } from '@/app/context/gloablConext'
 
-export default function MoviesTrendList() {
+export default function MoviesTrendList({ isVideo = false }) {
+    const [toDisplay, setToDisplay] = useState<videoDataType[]>(trendingVideos)
+    const { history } = useSearchContext()
+
+    useEffect(() => {
+        if (isVideo) {
+            setToDisplay(history)
+        }
+    }, [isVideo])
+
     return (
         <Box
             sx={{
@@ -14,7 +25,7 @@ export default function MoviesTrendList() {
                 overflowX: "auto"
             }}
         >
-            {trendingVideos.map((movie) => (
+            {toDisplay.map((movie) => (
                 <Grid key={movie._id}>
                     <Paper
                         elevation={0}

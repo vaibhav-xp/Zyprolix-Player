@@ -1,10 +1,10 @@
 export interface videoDataType {
     _id: string,
     videoLink: string,
-    categoryName: string,
+    categoryName: string | null,
     thumbnail: string,
-    title: string,
-    description: string
+    title: string | null;
+    description: string | null;
 }
 
 export function videoLinkCreator(_id: string) {
