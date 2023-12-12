@@ -175,11 +175,11 @@ export default function VideoCard({ movie }: { movie: any }) {
                     }}
                     href={{
                         pathname: user ? `/video/${movie._id}` : "",
-                        query: {
+                        query: user ? {
                             title,
                             categoryName,
                             description
-                        },
+                        } : "",
                     }}
 
                     onClick={saveHistory}
