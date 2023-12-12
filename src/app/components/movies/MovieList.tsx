@@ -15,8 +15,8 @@ export default function MoviesList({ limit = 0 }: MovieListProps) {
 
     useEffect(() => {
         const filteredMovies = videos.filter((movie) =>
-            (movie.title.toLowerCase().includes(search.toLowerCase()) ||
-                movie.description.toLowerCase().includes(search.toLowerCase())) &&
+            ((movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
+                (movie.description && movie.description.toLowerCase().includes(search.toLowerCase()))) &&
             movie.categoryName !== 'tv-show'
         );
         setMovieList(filteredMovies);

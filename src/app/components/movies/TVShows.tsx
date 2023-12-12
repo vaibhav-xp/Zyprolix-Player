@@ -15,8 +15,9 @@ export default function TVShows({ limit = 0 }: MovieListProps) {
 
     useEffect(() => {
         const filteredTvShows = videos.filter((tvShow) =>
-            (tvShow.title.toLowerCase().includes(search.toLowerCase()) ||
-                tvShow.description.toLowerCase().includes(search.toLowerCase())) && tvShow.categoryName === 'tv-show'
+            ((tvShow.title && tvShow.title.toLowerCase().includes(search.toLowerCase()))
+                || (tvShow.description && tvShow.description.toLowerCase().includes(search.toLowerCase())))
+            && tvShow.categoryName === 'tv-show'
         );
 
         setTvShowList(filteredTvShows);

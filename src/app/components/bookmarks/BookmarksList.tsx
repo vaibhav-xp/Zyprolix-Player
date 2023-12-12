@@ -6,16 +6,18 @@ import { videoDataType } from '@/app/Data/videoHelper';
 
 export default function BookmarksList() {
     const [explore, setExplore] = useState<videoDataType[]>([]);
-    const { search, bookmark } = useSearchContext();
+    const { search, bookmark, history } = useSearchContext();
 
     useEffect(() => {
-        const filteredMovies = bookmark.filter(
-            (movie) =>
-                movie.title.toLowerCase().includes(search.toLowerCase()) ||
-                movie.description.toLowerCase().includes(search.toLowerCase())
-        );
+        if (history) {
+            const filteredMovies = history.filter(
+                (movie) =>
+                    (movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
+                    (movie.description && movie.description.toLowerCase().includes(search.toLowerCase()))
+            );
 
-        setExplore(filteredMovies);
+            setExplore(filteredMovies);
+        }
     }, [search, bookmark]);
 
     const gridContainerStyle = {

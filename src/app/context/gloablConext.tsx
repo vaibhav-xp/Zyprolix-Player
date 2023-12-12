@@ -52,7 +52,7 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userDocRef = doc(db, 'users', user?.id);
+                const userDocRef = doc(db, 'users', user?.id ?? '');
                 const userDocSnapshot = await getDoc(userDocRef);
 
                 if (userDocSnapshot.exists()) {
@@ -80,7 +80,7 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
         bookmarkData?: videoDataType[];
     }) => {
         try {
-            const userRef = doc(db, 'users', user?.id);
+            const userRef = doc(db, 'users', user?.id ?? '');
             await setDoc(userRef, {
                 _id: user?.id,
                 history: historyData,

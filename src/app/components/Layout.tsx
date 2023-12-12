@@ -14,7 +14,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-    const { user, setUser, setApiRequestCounter, setBookmark, setHistory } = useSearchContext();
+    const { user, setUser, setBookmark, setHistory } = useSearchContext();
     const router = useRouter()
 
     const logout = async () => {
@@ -22,7 +22,6 @@ export default function Layout({ children }: LayoutProps) {
             await signOut(auth);
             setUser(undefined);
             router.push('/')
-            setApiRequestCounter(0)
             setBookmark([])
             setHistory([])
         } catch (error: any) {

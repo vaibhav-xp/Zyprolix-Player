@@ -33,9 +33,8 @@ export default function ExploreList() {
         const fetchData = async () => {
             const filteredMovies = videos.filter(
                 (movie) =>
-                    (movie.title.toLowerCase().includes(search.toLowerCase()) ||
-                        movie.description.toLowerCase().includes(search.toLowerCase())) &&
-                    movie.categoryName !== 'tv-show'
+                ((movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
+                    (movie.description && movie.description.toLowerCase().includes(search.toLowerCase())))
             );
 
             if (filteredMovies.length < 8 && search) {

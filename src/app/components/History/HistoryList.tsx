@@ -11,11 +11,11 @@ export default function HistoryList() {
     useEffect(() => {
         const filteredMovies = history.filter(
             (movie) =>
-                movie.title.toLowerCase().includes(search.toLowerCase()) ||
-                movie.description.toLowerCase().includes(search.toLowerCase())
+                (movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
+                (movie.description && movie.description.toLowerCase().includes(search.toLowerCase()))
         );
 
-        setExplore(history);
+        setExplore(filteredMovies);
     }, [search, history]);
 
     const gridContainerStyle = {
