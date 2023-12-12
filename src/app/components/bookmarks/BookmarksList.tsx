@@ -30,8 +30,8 @@ export default function BookmarksList() {
 
     return (
         <Box sx={gridContainerStyle}>
-            {explore.map((video) => (
-                <Grid key={video._id}>
+            {explore.map((video, index) => (
+                <Grid key={index}>
                     <Paper elevation={0} sx={{ backgroundColor: 'transparent' }}>
                         <TrendCard movie={video} />
                     </Paper>
