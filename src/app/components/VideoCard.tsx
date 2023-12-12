@@ -66,6 +66,7 @@ export default function VideoCard({ movie }: { movie: any }) {
                 }}
             >
                 <Image
+                    priority
                     src={thumbnail}
                     alt=""
                     width={320}

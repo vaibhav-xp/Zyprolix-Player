@@ -72,6 +72,7 @@ export default function Layout({ children }: LayoutProps) {
                         }}
                     >
                         <Image
+                            priority
                             src={user?.img}
                             width={20}
                             height={20}
