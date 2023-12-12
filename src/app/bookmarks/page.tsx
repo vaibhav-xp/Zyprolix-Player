@@ -5,7 +5,6 @@ import { Box, InputAdornment, InputBase, Paper, Typography } from '@mui/material
 import { Search as SearchIcon } from '@mui/icons-material';
 import BookmarksList from '../components/bookmarks/BookmarksList';
 import { useSearchContext } from '../context/gloablConext';
-import HistoryList from '../components/History/HistoryList';
 
 export default function Page() {
     const { search, setSearch } = useSearchContext()

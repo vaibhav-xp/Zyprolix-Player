@@ -8,12 +8,16 @@ import { useSearchContext } from '../context/gloablConext';
 
 export default function Page() {
     const [form, setForm] = useState<string>("");
-    const { setSearch, apiRequestCounter, setApiRequestCounter } = useSearchContext()
+    const { setSearch, apiRequestCounter, setApiRequestCounter, addDataToFirebase } = useSearchContext()
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSearch(form)
-        setApiRequestCounter((prev) => prev + 1)
+        setApiRequestCounter((prev) => {
+            const newCount = prev + 1;
+            addDataToFirebase({ apiCounter: newCount })
+            return newCount
+        })
     };
 
     useEffect(() => {
@@ -55,9 +59,9 @@ export default function Page() {
                             </InputAdornment>
                         }
                     />
-                    <Button type="submit" variant="contained" color="primary" disabled={apiRequestCounter === 20}>
+                    {apiRequestCounter && <Button type="submit" variant="contained" color="primary" disabled={apiRequestCounter === 20}>
                         Submit {`${apiRequestCounter}/20`}
-                    </Button>
+                    </Button>}
                 </Paper>
             </Box>
             <Box py={2} px={4}>

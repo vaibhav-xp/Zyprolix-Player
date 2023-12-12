@@ -15,7 +15,7 @@ export default function HistoryList() {
                 movie.description.toLowerCase().includes(search.toLowerCase())
         );
 
-        setExplore(filteredMovies);
+        setExplore(history);
     }, [search, history]);
 
     const gridContainerStyle = {
@@ -30,8 +30,8 @@ export default function HistoryList() {
 
     return (
         <Box sx={gridContainerStyle}>
-            {explore.map((video) => (
-                <Grid key={video._id}>
+            {explore.map((video, index) => (
+                <Grid key={index}>
                     <Paper elevation={0} sx={{ backgroundColor: 'transparent' }}>
                         <TrendCard movie={video} />
                     </Paper>

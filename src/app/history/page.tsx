@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../components/Layout';
 import { Box, InputAdornment, InputBase, Paper, Typography } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';

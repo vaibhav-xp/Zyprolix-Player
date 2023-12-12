@@ -4,7 +4,6 @@ import Layout from '@/app/components/Layout';
 import VideoCard from '@/app/components/VideoCard';
 import { useSearchParams } from 'next/navigation';
 import { useSearchContext } from '@/app/context/gloablConext';
-import { useEffect } from 'react';
 import { videoDataType, videoLinkCreator, videoThumbnailLinkCreator } from '@/app/Data/videoHelper';
 
 interface ParamsProps {
@@ -70,10 +69,10 @@ export default function Page({ params }: { params: ParamsProps }) {
                             <strong style={{ fontSize: '20px' }}>Title:</strong> <br /> {movie.title}
                         </Typography>
                         <Typography variant="subtitle1">
-                            <strong style={{ fontSize: '20px' }}>Description:</strong> <br /> {movie.description}
+                            <strong style={{ fontSize: '20px' }}>Category Name:</strong> <br /> {movie.categoryName}
                         </Typography>
                         <Typography variant="subtitle1">
-                            <strong style={{ fontSize: '20px' }}>Category Name:</strong> <br /> {movie.categoryName}
+                            <strong style={{ fontSize: '20px' }}>Description:</strong> <br /> {movie.description}
                         </Typography>
                     </Box>
                 </Grid>

@@ -3,7 +3,6 @@ import { Box, Typography } from "@mui/material";
 import Layout from "./components/Layout";
 import MoviesTrendList from "./components/movies/MoviesTrendList";
 import MoviesList from "./components/movies/MovieList";
-import { useEffect } from "react";
 
 export default function Home() {
 

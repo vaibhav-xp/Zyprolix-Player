@@ -26,4 +26,4 @@ const ytDataAPI = async (keyword: string) => {
     }
 }
 
-export { youtubeAPI, ytDataAPI };
+export { ytDataAPI };

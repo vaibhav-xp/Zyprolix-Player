@@ -1,10 +1,12 @@
 'use client';
 import React from 'react'
 import HomeIcon from '@mui/icons-material/Home';
-import { Bookmark, Explore, History, LocalMovies, Tv } from '@mui/icons-material';
+import { Bookmark, Explore, History, LocalMovies, LockOpen, Tv } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
 import { Box, Hidden, Typography } from '@mui/material';
 import Link from 'next/link';
+import { loginAPI } from '../context/firebase';
+import { useSearchContext } from '../context/gloablConext';
 
 const navLinks = [
     {
@@ -36,12 +38,24 @@ const navLinks = [
         name: "History",
         icon: <History />,
         link: "/history"
-    },
+    }
 ]
 
 export default function Sidebar() {
     const pathname = usePathname()
+    const { user } = useSearchContext()
 
+    const login = async () => {
+        try {
+            await loginAPI();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const logout = async () => {
+
+    }
     return (
         <Box
             sx={{
@@ -86,15 +100,20 @@ export default function Sidebar() {
                 }}
             >
                 <Hidden smDown>
-                    <Typography
-                        variant='h5'
-                        component="h1"
-                        my={2}
-                        fontWeight={600}
-                        fontSize="30px"
-                    >
-                        Zyprolix
-                    </Typography>
+                    <Link href='/' style={{
+                        textDecoration: 'none',
+                        color: 'white'
+                    }}>
+                        <Typography
+                            variant='h5'
+                            component="h1"
+                            my={2}
+                            fontWeight={600}
+                            fontSize="30px"
+                        >
+                            Zyprolix
+                        </Typography>
+                    </Link>
                 </Hidden>
                 <Box
                     sx={{
@@ -110,7 +129,38 @@ export default function Sidebar() {
                         gap: 4
                     }}
                 >
-                    {navLinks.map((item) => (
+                    {!user &&
+                        <Box
+                            component={"span"}
+                            key={"signin"}
+                            style={{ textDecoration: "none" }}
+                            sx={{
+                                cursor: 'pointer',
+                                "&:hover": {
+                                    color: "cyan"
+                                }
+                            }}
+                            onClick={login}
+                        >
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    py: {
+                                        xs: 2,
+                                        lg: 0
+                                    },
+                                    gap: 2,
+                                    textDecoration: "none"
+                                }}
+                            >
+                                <LockOpen />
+                                <Hidden lgDown>
+                                    <Typography>Login</Typography>
+                                </Hidden>
+                            </Box>
+                        </Box>}
+                    {navLinks.slice(0, user ? navLinks.length : 1).map((item) => (
                         <Link
                             key={item.name}
                             href={item.link}

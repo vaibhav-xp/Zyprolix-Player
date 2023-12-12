@@ -1,14 +1,15 @@
-import { Bookmark, BookmarkAdd, BookmarkAdded, LocalMovies, LocalMoviesOutlined, Movie, PlayCircle } from '@mui/icons-material'
+import { BookmarkAdd, BookmarkAdded, PlayCircle } from '@mui/icons-material'
 import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useSearchContext } from '../context/gloablConext'
+import { loginAPI } from '../context/firebase'
 
 export default function VideoCard({ movie }: { movie: any }) {
     const { title, thumbnail, categoryName, description } = movie;
     const newTitle = title.split(' ').splice(0, 5).join(" ");
-    const { bookmark, setBookmark, history, setHistory } = useSearchContext();
+    const { bookmark, setBookmark, user, setHistory, addDataToFirebase } = useSearchContext();
     const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
     useEffect(() => {
@@ -16,27 +17,40 @@ export default function VideoCard({ movie }: { movie: any }) {
         setIsBookmark(book);
     }, [bookmark, movie._id]);
 
-    const handleToggleBookmark = () => {
-        if (isBookmark) {
-            const updatedBookmarks = bookmark.filter((video) => video._id !== movie._id);
-            setBookmark(updatedBookmarks);
+    const handleToggleBookmark = async () => {
+        if (user) {
+            if (isBookmark) {
+                const updatedBookmarks = bookmark.filter((video) => video._id !== movie._id);
+                setBookmark(() => {
+                    addDataToFirebase({ bookmarkData: updatedBookmarks })
+                    return updatedBookmarks
+                });
+            } else {
+                setBookmark((prevBookmark) => {
+                    const newData = [movie, ...prevBookmark]
+                    addDataToFirebase({ bookmarkData: newData })
+                    return newData
+                });
+            }
         } else {
-            setBookmark([movie, ...bookmark]);
+            await loginAPI()
         }
     };
 
-    const saveHistory = () => {
-        setHistory((prevHistory) => {
-            const movieInHistory = prevHistory.length > 0 && prevHistory[0]._id === movie._id;
-
-            if (!movieInHistory) {
-                return [movie, ...prevHistory];
-            }
-
-            return prevHistory;
-        });
+    const saveHistory = async () => {
+        if (user) {
+            setHistory((prevHistory) => {
+                if (prevHistory[0]._id !== movie._id) {
+                    const newData = [movie, ...prevHistory];
+                    addDataToFirebase({ historyData: newData })
+                    return newData
+                }
+                return prevHistory
+            });
+        } else {
+            await loginAPI()
+        }
     };
-
 
     return (
         <Card
@@ -152,7 +166,7 @@ export default function VideoCard({ movie }: { movie: any }) {
                         cursor: "pointer",
                     }}
                     href={{
-                        pathname: `/video/${movie._id}`,
+                        pathname: user ? `/video/${movie._id}` : "",
                         query: {
                             title,
                             categoryName,
