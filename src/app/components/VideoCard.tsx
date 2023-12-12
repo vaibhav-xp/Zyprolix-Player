@@ -40,12 +40,19 @@ export default function VideoCard({ movie }: { movie: any }) {
     const saveHistory = async () => {
         if (user) {
             setHistory((prevHistory) => {
-                if (prevHistory[0]._id !== movie._id) {
-                    const newData = [movie, ...prevHistory];
+
+                const newData = [movie, ...prevHistory];
+                if (prevHistory[0]?._id !== movie._id && prevHistory.length > 0) {
+                    addDataToFirebase({ historyData: newData })
+                    return newData
+
+                } else if (prevHistory.length === 0) {
                     addDataToFirebase({ historyData: newData })
                     return newData
                 }
+
                 return prevHistory
+
             });
         } else {
             await loginAPI()

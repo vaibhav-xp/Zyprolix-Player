@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, createContext, useContext, ReactNode } from '
 import { videoDataType } from '../Data/videoHelper';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore'; // Import getDoc for retrieving data
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 export interface userInterface {
     id: string;
@@ -15,8 +15,6 @@ export interface userInterface {
 interface GlobalContextProviderProps {
     search: string;
     setSearch: Dispatch<SetStateAction<string>>;
-    apiRequestCounter: number | undefined;
-    setApiRequestCounter: Dispatch<SetStateAction<number | undefined>>;
     bookmark: videoDataType[];
     setBookmark: Dispatch<SetStateAction<videoDataType[]>>;
     history: videoDataType[];
@@ -30,7 +28,6 @@ export const GlobalContext = createContext<GlobalContextProviderProps | undefine
 
 export const GlobalContextProvider = ({ children }: { children: ReactNode }) => {
     const [search, setSearch] = useState<string>('');
-    const [apiRequestCounter, setApiRequestCounter] = useState<number | undefined>(undefined);
     const [bookmark, setBookmark] = useState<videoDataType[]>([]);
     const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
     const [history, setHistory] = useState<videoDataType[]>([]);
@@ -60,7 +57,6 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
 
                 if (userDocSnapshot.exists()) {
                     const userData = userDocSnapshot.data();
-                    setApiRequestCounter(userData.apiRequestCounter || 0);
                     setBookmark(userData.bookmark || []);
                     setHistory(userData.history || []);
                 }
@@ -76,7 +72,6 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
 
     // Adding Data to firebase 
     const addDataToFirebase = async ({
-        apiCounter = apiRequestCounter,
         historyData = history,
         bookmarkData = bookmark,
     }: {
@@ -88,7 +83,6 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
             const userRef = doc(db, 'users', user?.id);
             await setDoc(userRef, {
                 _id: user?.id,
-                apiRequestCounter: apiCounter,
                 history: historyData,
                 bookmark: bookmarkData,
             });
@@ -102,8 +96,6 @@ export const GlobalContextProvider = ({ children }: { children: ReactNode }) => 
             value={{
                 search,
                 setSearch,
-                apiRequestCounter,
-                setApiRequestCounter,
                 bookmark,
                 setBookmark,
                 history,
