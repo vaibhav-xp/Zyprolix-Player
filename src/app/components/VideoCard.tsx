@@ -38,26 +38,26 @@ export default function VideoCard({ movie }: { movie: any }) {
     };
 
     const saveHistory = async () => {
-        if (user) {
-            setHistory((prevHistory) => {
+        setHistory((prevHistory) => {
 
-                const newData = [movie, ...prevHistory];
-                if (prevHistory[0]?._id !== movie._id && prevHistory.length > 0) {
-                    addDataToFirebase({ historyData: newData })
-                    return newData
+            const newData = [movie, ...prevHistory];
+            if (prevHistory[0]?._id !== movie._id && prevHistory.length > 0) {
+                addDataToFirebase({ historyData: newData })
+                return newData
 
-                } else if (prevHistory.length === 0) {
-                    addDataToFirebase({ historyData: newData })
-                    return newData
-                }
+            } else if (prevHistory.length === 0) {
+                addDataToFirebase({ historyData: newData })
+                return newData
+            }
 
-                return prevHistory
+            return prevHistory
 
-            });
-        } else {
-            await loginAPI()
-        }
+        });
     };
+
+    const login = async () => {
+        await loginAPI()
+    }
 
     return (
         <Card
@@ -162,7 +162,7 @@ export default function VideoCard({ movie }: { movie: any }) {
                         <BookmarkAdd />
                     )}
                 </Box>
-                <Link
+                {user && <Link
                     style={{
                         position: "absolute",
                         transform: "translate(-50%, -50%)",
@@ -174,12 +174,12 @@ export default function VideoCard({ movie }: { movie: any }) {
                         cursor: "pointer",
                     }}
                     href={{
-                        pathname: user ? `/video/${movie._id}` : "",
-                        query: user ? {
+                        pathname: `/video/${movie._id}`,
+                        query: {
                             title,
                             categoryName,
                             description
-                        } : "",
+                        },
                     }}
 
                     onClick={saveHistory}
@@ -204,6 +204,42 @@ export default function VideoCard({ movie }: { movie: any }) {
                         }}
                     />
                 </Link>
+                }
+                {!user && <Box
+                    style={{
+                        position: "absolute",
+                        transform: "translate(-50%, -50%)",
+                        top: "50%",
+                        left: "50%",
+                        height: "60px",
+                        width: "60px",
+                        color: "#fff",
+                        cursor: "pointer",
+                    }}
+
+                    onClick={login}
+                >
+                    <PlayCircle
+                        sx={{
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            color: 'white',
+                            opacity: 0.8,
+                            transition: 'all 0.2s',
+                            '&:hover': {
+                                opacity: 1,
+                                transform: 'scale(1.2)'
+                            },
+                            '&:active': {
+                                transform: 'scale(0.9)'
+                            }
+                        }}
+                    />
+                </Box>
+                }
             </CardContent>
         </Card >
     )
