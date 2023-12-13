@@ -37,23 +37,21 @@ export default function VideoCard({ movie }: { movie: any }) {
         }
     };
 
-    const saveHistory = async () => {
-        setHistory((prevHistory) => {
+    const saveHistory = async () => setHistory((prevHistory) => {
 
-            const newData = [movie, ...prevHistory];
-            if (prevHistory[0]?._id !== movie._id && prevHistory.length > 0) {
-                addDataToFirebase({ historyData: newData })
-                return newData
+        const newData = [movie, ...prevHistory];
+        if (prevHistory[0]?._id !== movie._id && prevHistory.length > 0) {
+            addDataToFirebase({ historyData: newData })
+            return newData
 
-            } else if (prevHistory.length === 0) {
-                addDataToFirebase({ historyData: newData })
-                return newData
-            }
+        } else if (prevHistory.length === 0) {
+            addDataToFirebase({ historyData: newData })
+            return newData
+        }
 
-            return prevHistory
+        return prevHistory
 
-        });
-    };
+    });
 
     const login = async () => {
         await loginAPI()

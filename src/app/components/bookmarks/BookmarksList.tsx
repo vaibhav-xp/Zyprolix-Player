@@ -6,11 +6,11 @@ import { videoDataType } from '@/app/Data/videoHelper';
 
 export default function BookmarksList() {
     const [explore, setExplore] = useState<videoDataType[]>([]);
-    const { search, bookmark, history } = useSearchContext();
+    const { search, bookmark } = useSearchContext();
 
     useEffect(() => {
-        if (history) {
-            const filteredMovies = history.filter(
+        if (bookmark) {
+            const filteredMovies = bookmark.filter(
                 (movie) =>
                     (movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
                     (movie.description && movie.description.toLowerCase().includes(search.toLowerCase()))

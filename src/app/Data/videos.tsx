@@ -2,6 +2,14 @@ import { videoLinkCreator, videoThumbnailLinkCreator, videoDataType } from "./vi
 
 export const videos: videoDataType[] = [
     {
+        _id: "OFhT4RHAVRg&t=105s",
+        videoLink: videoLinkCreator("OFhT4RHAVRg&t=105s"),
+        thumbnail: videoThumbnailLinkCreator("OFhT4RHAVRg&t=105s"),
+        categoryName: "education",
+        title: "i18next react tutorial",
+        description: "Discover how to integrate i18next, the renowned internationalization library, into your React applications with our comprehensive tutorial. Learn the essentials of implementing multi-language support, empowering your app to engage a diverse global audience. Enhance user experience and maximize reach by following our i18next React tutorial today!"
+    },
+    {
         _id: "VhCLzCrfExw",
         videoLink: videoLinkCreator("VhCLzCrfExw"),
         thumbnail: videoThumbnailLinkCreator("VhCLzCrfExw"),
@@ -58,14 +66,6 @@ export const videos: videoDataType[] = [
         categoryName: "tv-show",
         title: "Kumkum Bhagya",
         description: "Kumkum Bhagya is a popular Indian television drama series that revolves around the life of Pragya, a simple and traditional woman, and her journey through various challenges and twists of fate. The show explores themes of love, family, and the complexities of relationships, keeping viewers engaged with its intriguing storyline and well-developed characters."
-    },
-    {
-        _id: "DramYPzu0Lk",
-        videoLink: videoLinkCreator("DramYPzu0Lk"),
-        thumbnail: videoThumbnailLinkCreator("DramYPzu0Lk"),
-        categoryName: "tv-show",
-        title: "Shinchan",
-        description: "Shinchan is a popular Japanese anime series that follows the mischievous adventures of a 5-year-old boy named Shinchan Nohara. Known for his witty remarks and playful antics, Shinchan brings laughter and joy to audiences of all ages. Join Shinchan and his friends as they navigate the funny and often unexpected situations of childhood, creating cherished memories along the way."
     },
     {
         _id: "AKiynoClCaA",
@@ -127,6 +127,14 @@ export const videos: videoDataType[] = [
         categoryName: "tv-show",
         title: "Kapil Sharma Show with Sharukh Khan & Nawazuddin",
         description: "Enjoy a hilarious episode of The Kapil Sharma Show featuring Bollywood superstars Sharukh Khan and Nawazuddin Siddiqui. Get ready for non-stop laughter and entertaining conversations as Kapil Sharma brings his unique charm to the stage. It's a must-watch episode filled with fun moments and memorable interactions with the guests."
+    },
+    {
+        _id: "OFhT4RHAVRg",
+        videoLink: videoLinkCreator("OFhT4RHAVRg"),
+        thumbnail: videoThumbnailLinkCreator("OFhT4RHAVRg"),
+        categoryName: "education",
+        title: "i18next react tutorial",
+        description: "Discover how to integrate i18next, the renowned internationalization library, into your React applications with our comprehensive tutorial. Learn the essentials of implementing multi-language support, empowering your app to engage a diverse global audience. Enhance user experience and maximize reach by following our i18next React tutorial today!"
     },
     {
         _id: "yrgst6eD-Dk",
