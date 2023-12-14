@@ -17,7 +17,7 @@ export default function MoviesList({ limit = 0 }: MovieListProps) {
         const filteredMovies = videos.filter((movie) =>
             ((movie.title && movie.title.toLowerCase().includes(search.toLowerCase())) ||
                 (movie.description && movie.description.toLowerCase().includes(search.toLowerCase()))) &&
-            movie.categoryName !== 'tv-show'
+            movie.categoryName !== 'tv-show' && movie.categoryName !== 'education'
         );
         setMovieList(filteredMovies);
     }, [search]);

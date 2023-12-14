@@ -2,14 +2,6 @@ import { videoLinkCreator, videoThumbnailLinkCreator, videoDataType } from "./vi
 
 export const videos: videoDataType[] = [
     {
-        _id: "OFhT4RHAVRg",
-        videoLink: videoLinkCreator("OFhT4RHAVRg"),
-        thumbnail: videoThumbnailLinkCreator("OFhT4RHAVRg"),
-        categoryName: "education",
-        title: "i18next react tutorial",
-        description: "Discover how to integrate i18next, the renowned internationalization library, into your React applications with our comprehensive tutorial. Learn the essentials of implementing multi-language support, empowering your app to engage a diverse global audience. Enhance user experience and maximize reach by following our i18next React tutorial today!"
-    },
-    {
         _id: "VhCLzCrfExw",
         videoLink: videoLinkCreator("VhCLzCrfExw"),
         thumbnail: videoThumbnailLinkCreator("VhCLzCrfExw"),
